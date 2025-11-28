@@ -1,219 +1,60 @@
-# 🤖 AI Image Captioning App
+🤖📷 AI-Powered Image Caption Generator
 
-A beautiful, modern web application that generates intelligent captions for uploaded images using state-of-the-art BLIP AI model from Hugging Face.
+Upload an image and let AI describe what it sees ⚡
+A deep learning–based Image Captioning App deployed on Render.
 
-![App Preview](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Flask](https://img.shields.io/badge/Flask-2.3+-red)
-![AI](https://img.shields.io/badge/AI-BLIP%20Model-purple)
+🔴 Live Demo:
+👉 https://ai-image-captioning-daoi.onrender.com
 
-## ✨ Features
+📌 Features
 
-- 🎨 **Modern UI**: Beautiful gradient design with smooth animations
-- 🖼️ **Drag & Drop**: Intuitive image upload with visual feedback
-- 🤖 **AI-Powered**: Uses BLIP (Bootstrapping Language-Image Pre-training) model
-- 📱 **Responsive**: Works perfectly on desktop and mobile
-- ⚡ **Fast**: Optimized for quick caption generation
-- 🔄 **Fallback**: Graceful degradation with rule-based captions
-- 🌐 **Production Ready**: Multiple deployment options included
+-Upload any image and get captions
+-AI-powered inference
+-Fast and lightweight Flask backend
+-Clean UI & mobile responsive
+-Fully deployed on Render
 
-## 🚀 Quick Start
+🧠 Why It Works?
 
-### Option 1: One-Click Deploy
+-CNN extracts visual features from image
+-LSTM Decoder generates meaningful sentences
+-Pretrained vocabulary and rule-based fallback
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template)
+📂 Project Structure
+ai-image-captioning/
+│── app.py
+│── encoder.py
+│── decoder.py
+│── infer.py
+│── requirements.txt
+│── Procfile
+│── railway.toml
+│── Dockerfile
+│── templates/
+│── data/
+└── README.md
 
-### Option 2: Local Development
-
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd imgcap_app
-
-# Run setup script
-python setup.py
-
-# Start the application
+🔧 Run Locally
+git clone https://github.com/anushka2709/ai-image-captioning.git
+cd ai-image-captioning
+pip install -r requirements.txt
 python app.py
-```
 
-Visit `http://localhost:5000` to see your app in action!
+🚀 Deploy on Render
+Build Command:
+pip install -r requirements.txt
+Start Command:
+python app.py
+Render automatically sets PORT 👌
 
-## 🛠️ Manual Setup
+🔮 Future Scope
 
-### Prerequisites
-- Python 3.10+
-- 4GB+ RAM (for AI model)
-- Modern web browser
+-Transformer-based model for better captions
+-Dark theme UI
+-Multi-language captioning
+-Store caption results
 
-### Installation
+👩‍💻 Author
 
-1. **Create virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   venv\Scripts\activate     # Windows
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the application:**
-   ```bash
-   python app.py
-   ```
-
-## 🌐 Deployment
-
-We support multiple deployment platforms. Choose what works best for you:
-
-### 🚂 Railway (Recommended)
-- **Pros**: Easiest setup, automatic HTTPS, great free tier
-- **Steps**: Connect GitHub → Deploy → Done!
-- [Detailed Guide](DEPLOYMENT.md#railway)
-
-### 🟣 Heroku
-- **Pros**: Popular, lots of documentation
-- **Steps**: `heroku create` → `git push heroku main`
-- [Detailed Guide](DEPLOYMENT.md#heroku)
-
-### ☁️ Google Cloud Run
-- **Pros**: Serverless, pay-per-request, auto-scaling
-- **Steps**: `gcloud run deploy --source .`
-- [Detailed Guide](DEPLOYMENT.md#google-cloud-run)
-
-### 🐳 Docker
-```bash
-# Build and run
-docker build -t imgcap-app .
-docker run -p 5000:5000 imgcap-app
-
-# Or use docker-compose
-docker-compose up --build
-```
-
-### 📋 Quick Deploy Script
-```bash
-python deploy.py
-```
-
-## 🎯 API Usage
-
-### Caption Generation Endpoint
-
-**POST** `/caption`
-
-```javascript
-const formData = new FormData();
-formData.append('image', imageFile);
-
-fetch('/caption', {
-    method: 'POST',
-    body: formData
-})
-.then(response => response.json())
-.then(data => {
-    console.log('Caption:', data.caption);
-});
-```
-
-### Health Check Endpoint
-
-**GET** `/health`
-
-```json
-{
-    "status": "healthy",
-    "model_loaded": true,
-    "fallback_mode": false
-}
-```
-
-## 🧠 How It Works
-
-1. **Image Upload**: User uploads image via drag & drop or file picker
-2. **Preprocessing**: Image is resized and normalized for optimal processing
-3. **AI Analysis**: BLIP model analyzes the image and generates descriptive text
-4. **Caption Display**: Generated caption is displayed with smooth animations
-5. **Fallback**: If AI fails, rule-based system provides basic descriptions
-
-## 🔧 Configuration
-
-### Environment Variables
-
-```bash
-FLASK_ENV=production          # Set to production for deployment
-WEB_CONCURRENCY=1            # Number of worker processes
-MAX_WORKERS=1                # Max workers (memory optimization)
-TIMEOUT=120                  # Request timeout in seconds
-```
-
-### Model Configuration
-
-The app automatically:
-- Downloads BLIP model on first run (~1GB)
-- Caches model files for faster subsequent loads
-- Falls back to rule-based captions if model fails
-
-## 📊 Performance
-
-- **First Load**: ~10-15 seconds (model download)
-- **Subsequent Loads**: ~2-3 seconds
-- **Memory Usage**: ~2-3GB with AI model
-- **Supported Formats**: PNG, JPG, JPEG, GIF, BMP
-- **Max Image Size**: 16MB
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Memory Errors:**
-```bash
-# Use CPU-only version
-pip install torch==2.0.1+cpu torchvision==0.15.2+cpu
-```
-
-**Model Loading Fails:**
-- Check internet connection (model downloads from Hugging Face)
-- Ensure sufficient disk space (~2GB)
-- Try restarting the application
-
-**Slow Performance:**
-- Use smaller images (<2MB)
-- Consider GPU deployment for faster processing
-- Enable caching for repeated requests
-
-### Debug Mode
-```bash
-FLASK_ENV=development python app.py
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature-name`
-3. Commit changes: `git commit -am 'Add feature'`
-4. Push to branch: `git push origin feature-name`
-5. Submit pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Salesforce BLIP](https://github.com/salesforce/BLIP) for the amazing AI model
-- [Hugging Face](https://huggingface.co/) for model hosting and transformers library
-- [Flask](https://flask.palletsprojects.com/) for the web framework
-
-## 📞 Support
-
-- 📖 [Deployment Guide](DEPLOYMENT.md)
-- 🐛 [Report Issues](https://github.com/your-repo/issues)
-- 💬 [Discussions](https://github.com/your-repo/discussions)
-
----
-
-Made with ❤️ and 🤖 AI
+Anushka Bohra 💜
+⭐ Star the repo if you like it!
